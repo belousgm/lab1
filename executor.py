@@ -1,4 +1,4 @@
-file = open(r'pokemon_full.json')
+file = open('pokemon_full.json')
 all_symbols = file.read()
 file.close()
 print('Общее количество символов:', len(all_symbols))
