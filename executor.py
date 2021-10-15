@@ -1,4 +1,5 @@
 import json
+import statistics
 
 file = open('pokemon_full.json')
 pokemon_list = file.read()
@@ -34,3 +35,15 @@ for max_skills in pokemon_list:
 print('Умения, содержащие больше всего слов: ', end='')
 for ability in max_abilities:
     print(ability, end='; ')
+
+min_dispersion = 100000
+balance_pokemon = ''
+for pokemon in pokemon_list:
+    stats_for_dispersion = []
+    for stat in pokemon["stats"]:
+        stats_for_dispersion.append(pokemon["stats"][stat])
+    stats_for_dispersion.pop()
+    if statistics.pvariance(stats_for_dispersion) < min_dispersion:
+        min_dispersion = statistics.pvariance(stats_for_dispersion)
+        balance_pokemon = pokemon["name"]
+print('\nСамый сбалансированный покемон:', balance_pokemon)
